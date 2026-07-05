@@ -1,0 +1,96 @@
+/* ============================================================
+   Guía de Acogida · Área Sanitaria I de Asturias — v2 (multi-página)
+   Color:  --navy #003087 · --sky #2E86DE · --teal #0AA89E · --paper #F4F7FA
+   Tipo:   'Lexend' (display) + 'IBM Plex Sans' (cuerpo) + 'IBM Plex Mono' (datos)
+   ============================================================ */
+
+:root {
+  --navy: #003087;
+  --navy-dark: #001c54;
+  --sky: #2E86DE;
+  --teal: #0AA89E;
+  --paper: #F4F7FA;
+  --line: #E1E8F0;
+}
+
+html { scroll-behavior: smooth; scroll-padding-top: 5.5rem; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; }
+}
+
+body { font-family: 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif; background-color: var(--paper); }
+.font-display { font-family: 'Lexend', 'IBM Plex Sans', sans-serif; }
+.font-mono { font-family: 'IBM Plex Mono', ui-monospace, monospace; }
+
+.coastline-divider {
+  height: 10px; width: 100%;
+  background-repeat: repeat-x; background-size: 120px 10px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='10' viewBox='0 0 120 10'%3E%3Cpath d='M0 5 Q15 0 30 5 T60 5 T90 5 T120 5' fill='none' stroke='%230AA89E' stroke-width='2'/%3E%3C/svg%3E");
+  opacity: .55;
+}
+.dark .coastline-divider { opacity: .35; }
+
+.nav-link { position: relative; transition: color .15s ease, background-color .15s ease; }
+.nav-link.active { color: var(--navy); background-color: rgba(46,134,222,.10); font-weight: 600; }
+.dark .nav-link.active { color: #7fb2ff; background-color: rgba(46,134,222,.16); }
+.nav-link.active::before {
+  content: ""; position: absolute; left: 0; top: 8px; bottom: 8px; width: 3px; border-radius: 2px;
+  background-color: var(--teal);
+}
+
+a:focus-visible, button:focus-visible, input:focus-visible, summary:focus-visible {
+  outline: 3px solid var(--teal); outline-offset: 2px; border-radius: 4px;
+}
+
+.data-table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: .85rem; }
+.data-table th {
+  background-color: var(--navy); color: #fff; text-align: left; padding: .55rem .85rem;
+  font-family: 'Lexend', sans-serif; font-weight: 500; font-size: .74rem; letter-spacing: .02em;
+  text-transform: uppercase; position: sticky; top: 0;
+}
+.data-table th:first-child { border-top-left-radius: .5rem; }
+.data-table th:last-child { border-top-right-radius: .5rem; }
+.data-table td { padding: .5rem .85rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+.dark .data-table td { border-bottom-color: #263449; }
+.data-table tbody tr:nth-child(even) { background-color: rgba(46,134,222,.045); }
+.dark .data-table tbody tr:nth-child(even) { background-color: rgba(46,134,222,.06); }
+.data-table tbody tr:hover { background-color: rgba(10,168,158,.10); }
+.table-scroll { overflow-x: auto; border-radius: .5rem; border: 1px solid var(--line); }
+.dark .table-scroll { border-color: #263449; }
+
+.org-card {
+  border: 1px solid var(--line); border-radius: .75rem; background: #fff; padding: .85rem 1rem;
+  box-shadow: 0 1px 2px rgba(0,26,84,.05);
+}
+.dark .org-card { background: #111a2b; border-color: #263449; }
+
+mark.search-hit { background-color: #FFE79A; color: inherit; border-radius: 3px; padding: 0 2px; }
+.dark mark.search-hit { background-color: #7a5b12; color: #fff; }
+.search-hidden { display: none !important; }
+
+.hero-backdrop {
+  background:
+    radial-gradient(circle at 15% 20%, rgba(10,168,158,.35), transparent 45%),
+    radial-gradient(circle at 85% 0%, rgba(46,134,222,.35), transparent 40%),
+    linear-gradient(180deg, var(--navy-dark) 0%, var(--navy) 60%, #012060 100%);
+}
+
+.pill { display: inline-flex; align-items: center; gap: .35rem; padding: .2rem .65rem; border-radius: 999px; font-size: .75rem; font-weight: 600; font-family: 'Lexend', sans-serif; }
+
+.skip-link { position: absolute; left: -9999px; top: 0; background: var(--teal); color: #fff; padding: .6rem 1rem; z-index: 100; border-radius: 0 0 .5rem 0; }
+.skip-link:focus { left: 0; }
+
+.page-hero {
+  background: linear-gradient(135deg, var(--navy) 0%, #0b3fa0 100%);
+}
+
+.toc-link { display: block; font-size: .8rem; padding: .3rem .5rem; border-radius: .4rem; color: #475569; }
+.toc-link:hover { background: rgba(46,134,222,.08); color: var(--navy); }
+.dark .toc-link { color: #94a3b8; }
+.dark .toc-link:hover { background: rgba(46,134,222,.12); color: #7fb2ff; }
+
+@media print {
+  #sidebar, #mobile-nav-toggle, #search-wrap, #back-to-top, .no-print { display: none !important; }
+}
