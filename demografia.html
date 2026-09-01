@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Informe Demográfico — Comarca Eo-Navia 2001-2025</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+  :root {
+    --ink: #1a1812;
+    --ink-mid: #3d3b35;
+    --ink-muted: #6b6860;
+    --ink-faint: #a8a59d;
+    --paper: #faf8f4;
+    --paper-tinted: #f2efe8;
+    --paper-rule: #ddd9d0;
+    --accent: #8b2635;
+    --accent-light: #c0444f;
+    --teal: #1a6b5a;
+    --amber: #b8620a;
+    --blue: #1a4f8a;
+    --font-display: 'Playfair Display', Georgia, serif;
+    --font-body: 'Source Serif 4', Georgia, serif;
+    --font-mono: 'IBM Plex Mono', monospace;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.75;
+    font-weight: 300;
+  }
+
+  /* HEADER */
+  .masthead {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 64px 0 48px;
+    position: relative;
+    overflow: hidden;
+  }
+  .masthead::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: var(--accent);
+  }
+  .masthead-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 48px;
+  }
+  .masthead-kicker {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 24px;
+  }
+  .masthead h1 {
+    font-family: var(--font-display);
+    font-size: 46px;
+    font-weight: 700;
+    line-height: 1.12;
+    margin-bottom: 20px;
+    color: var(--paper);
+  }
+  .masthead h1 em {
+    color: #f0b840;
+    font-style: italic;
+  }
+  .masthead-sub {
+    font-size: 17px;
+    font-weight: 300;
+    color: #c8c4bb;
+    max-width: 600px;
+    line-height: 1.6;
+    margin-bottom: 40px;
+  }
+  .masthead-meta {
+    display: flex;
+    gap: 40px;
+    border-top: 0.5px solid #3d3b35;
+    padding-top: 24px;
+    flex-wrap: wrap;
+  }
+  .meta-item { display: flex; flex-direction: column; gap: 3px; }
+  .meta-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .meta-value {
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 400;
+    color: #e8e5e0;
+  }
+
+  /* LAYOUT */
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 48px;
+  }
+
+  /* SECTIONS */
+  section {
+    padding: 56px 0 40px;
+    border-bottom: 0.5px solid var(--paper-rule);
+  }
+  section:last-of-type { border-bottom: none; }
+
+  .section-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+  h2 {
+    font-family: var(--font-display);
+    font-size: 28px;
+    font-weight: 600;
+    line-height: 1.25;
+    margin-bottom: 20px;
+    color: var(--ink);
+  }
+  h3 {
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-weight: 600;
+    margin: 32px 0 12px;
+    color: var(--ink);
+  }
+  p {
+    margin-bottom: 16px;
+    font-size: 15.5px;
+    line-height: 1.78;
+    font-weight: 300;
+    color: var(--ink-mid);
+  }
+  p strong { font-weight: 600; color: var(--ink); }
+
+  /* PULL QUOTES */
+  .pullquote {
+    border-left: 3px solid var(--accent);
+    padding: 16px 28px;
+    margin: 32px 0;
+    background: var(--paper-tinted);
+  }
+  .pullquote p {
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-style: italic;
+    color: var(--ink);
+    margin: 0;
+    line-height: 1.55;
+    font-weight: 400;
+  }
+
+  /* KPI CARDS */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--paper-rule);
+    border: 1px solid var(--paper-rule);
+    margin: 32px 0;
+  }
+  .kpi-card {
+    background: var(--paper);
+    padding: 20px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .kpi-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+  .kpi-value {
+    font-family: var(--font-display);
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1;
+  }
+  .kpi-value.red { color: var(--accent); }
+  .kpi-value.teal { color: var(--teal); }
+  .kpi-value.amber { color: var(--amber); }
+  .kpi-value.blue { color: var(--blue); }
+  .kpi-sub {
+    font-size: 12px;
+    color: var(--ink-faint);
+    line-height: 1.4;
+  }
+
+  /* ALERT BOXES */
+  .alert {
+    padding: 18px 22px;
+    margin: 24px 0;
+    border-left: 3px solid;
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: var(--ink-mid);
+  }
+  .alert.danger { border-color: var(--accent); background: #fdf2f2; }
+  .alert.warning { border-color: var(--amber); background: #fdf7f0; }
+  .alert.info { border-color: var(--blue); background: #f0f5fd; }
+  .alert.success { border-color: var(--teal); background: #f0f8f5; }
+  .alert strong { font-weight: 600; }
+
+  /* CHARTS */
+  .chart-wrap {
+    margin: 28px 0;
+    background: var(--paper);
+    border: 0.5px solid var(--paper-rule);
+    padding: 24px;
+  }
+  .chart-title {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 16px;
+  }
+  .chart-note {
+    font-size: 12px;
+    color: var(--ink-faint);
+    margin-top: 10px;
+    font-style: italic;
+  }
+
+  /* PYRAMID */
+  .pyramid-tabs {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 16px;
+  }
+  .pyramid-tab {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    padding: 6px 14px;
+    border: 0.5px solid var(--paper-rule);
+    background: var(--paper-tinted);
+    color: var(--ink-muted);
+    cursor: pointer;
+    letter-spacing: 0.05em;
+  }
+  .pyramid-tab.active {
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
+  }
+
+  /* INDEX TABLE */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    margin: 20px 0;
+  }
+  .data-table th {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    padding: 8px 12px;
+    text-align: right;
+    border-bottom: 1px solid var(--paper-rule);
+    font-weight: 500;
+  }
+  .data-table th:first-child { text-align: left; }
+  .data-table td {
+    padding: 7px 12px;
+    text-align: right;
+    border-bottom: 0.5px solid var(--paper-rule);
+    color: var(--ink-mid);
+    font-family: var(--font-mono);
+    font-size: 12px;
+  }
+  .data-table td:first-child {
+    text-align: left;
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--ink);
+  }
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table .highlight { background: var(--paper-tinted); }
+  .data-table .bold { font-weight: 600; color: var(--ink); }
+
+  /* CONCLUSIONS */
+  .conclusion-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin: 28px 0;
+  }
+  .conclusion-card {
+    padding: 22px 20px;
+    border: 0.5px solid var(--paper-rule);
+    background: var(--paper);
+  }
+  .conclusion-card .icon {
+    font-size: 22px;
+    margin-bottom: 10px;
+    display: block;
+  }
+  .conclusion-card h4 {
+    font-family: var(--font-display);
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--ink);
+  }
+  .conclusion-card p {
+    font-size: 13.5px;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--paper-tinted);
+    border-top: 1px solid var(--paper-rule);
+    padding: 40px 0;
+    margin-top: 0;
+  }
+  footer p {
+    font-size: 12.5px;
+    color: var(--ink-muted);
+    margin-bottom: 6px;
+    line-height: 1.5;
+  }
+  footer a {
+    color: var(--blue);
+    text-decoration: none;
+  }
+  footer a:hover { text-decoration: underline; }
+
+  /* LEGEND */
+  .legend {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    font-size: 12px;
+    color: var(--ink-muted);
+    margin-bottom: 12px;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+
+  /* DIVIDERS */
+  .ornament {
+    text-align: center;
+    color: var(--paper-rule);
+    font-size: 20px;
+    margin: 8px 0;
+    letter-spacing: 8px;
+  }
+
+  @media (max-width: 700px) {
+    .masthead h1 { font-size: 30px; }
+    .container { padding: 0 20px; }
+    .masthead-inner { padding: 0 20px; }
+    .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+    .conclusion-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <p class="masthead-kicker">José Manuel Fernández Carreira &nbsp;·&nbsp; https://orcid.org/0000-0002-4097-3224 </p>
+	 <p class="masthead-kicker">Dirección General de Salud Pública &nbsp;·&nbsp; Consejería de Salud, Principado de Asturias</p>
+    <h1>La Comarca <em>Eo-Navia</em><br>ante el declive demográfico</h1>
+    <p class="masthead-sub">Veinticinco años de despoblación progresiva, envejecimiento estructural y transformación silenciosa de la pirámide poblacional (2001–2025) con proyección al horizonte 2035.</p>
+    <div class="masthead-meta">
+      <div class="meta-item"><span class="meta-label">Período analizado</span><span class="meta-value">2001 – 2025</span></div>
+      <div class="meta-item"><span class="meta-label">Unidad geográfica</span><span class="meta-value">Área sanitaria I (Eo-Navia), Asturias</span></div>
+      <div class="meta-item"><span class="meta-label">Fuente</span><span class="meta-value">INE · Padrón Municipal · Elaborado por SADEI</span></div>
+      <div class="meta-item"><span class="meta-label">Fecha de análisis</span><span class="meta-value">Junio 2026</span></div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- RESUMEN EJECUTIVO -->
+<section>
+  <div class="container">
+    <p class="section-label">01 — Resumen ejecutivo</p>
+    <h2>Una comarca que pierde un habitante de cada cuatro en 25 años</h2>
+
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <span class="kpi-label">Población 2001</span>
+        <span class="kpi-value">54.913</span>
+        <span class="kpi-sub">habitantes censados</span>
+      </div>
+      <div class="kpi-card">
+        <span class="kpi-label">Población 2025</span>
+        <span class="kpi-value red">42.066</span>
+        <span class="kpi-sub">habitantes censados</span>
+      </div>
+      <div class="kpi-card">
+        <span class="kpi-label">Pérdida absoluta</span>
+        <span class="kpi-value red">−12.847</span>
+        <span class="kpi-sub">personas en 25 años</span>
+      </div>
+      <div class="kpi-card">
+        <span class="kpi-label">Tasa de declive</span>
+        <span class="kpi-value red">−23,4%</span>
+        <span class="kpi-sub">retroceso total 2001–2025</span>
+      </div>
+      <div class="kpi-card">
+        <span class="kpi-label">Tasa anual compuesta</span>
+        <span class="kpi-value amber">−1,10%</span>
+        <span class="kpi-sub">CAGR poblacional</span>
+      </div>
+      <div class="kpi-card">
+        <span class="kpi-label">Edad media 2001</span>
+        <span class="kpi-value blue">45,5 años</span>
+        <span class="kpi-sub">estimada por grupos quinquenales</span>
+      </div>
+      <div class="kpi-card">
+        <span class="kpi-label">Edad media 2025</span>
+        <span class="kpi-value amber">51,8 años</span>
+        <span class="kpi-sub">+6,3 años en 25 años</span>
+      </div>
+      <div class="kpi-card">
+        <span class="kpi-label">Índice de vejez 2025</span>
+        <span class="kpi-value red">385</span>
+        <span class="kpi-sub">mayores de 65 por cada 100 menores de 15</span>
+      </div>
+    </div>
+
+    <p>La Comarca Eo-Navia, unidad correspondiente al Área Sanitaria I del Principado de Asturias, registra a 1 de enero de 2025 una población de <strong>42.066 habitantes</strong>, frente a los 54.913 del año 2001. La pérdida neta asciende a <strong>12.847 personas en veinticinco años</strong>, equivalente al −23,4% del contingente inicial. La tasa de variación anual compuesta se sitúa en torno al −1,10%, un ritmo que, de mantenerse, llevaría a la comarca por debajo de los 38.000 habitantes en 2035.</p>
+
+    <div class="pullquote">
+      <p>La Comarca Eo-Navia no experimenta simplemente una «ralentización del crecimiento»: atraviesa un proceso de contracción demográfica estructural, caracterizado por la convergencia simultánea de declive absoluto, envejecimiento acelerado y colapso de las cohortes jóvenes.</p>
+    </div>
+
+    <p>Este proceso no es lineal ni homogéneo: afecta de forma desigual a los distintos grupos etarios, produce una transformación radical de la pirámide de edades y genera implicaciones directas sobre la sostenibilidad de los servicios sanitarios, sociales y educativos de la comarca.</p>
+  </div>
+</section>
+
+<!-- EVOLUCIÓN TOTAL -->
+<section>
+  <div class="container">
+    <p class="section-label">02 — Evolución de la población total</p>
+    <h2>Declive ininterrumpido durante todo el período</h2>
+
+    <p>La serie histórica 2001–2025 no presenta ningún año con crecimiento poblacional: el descenso es continuo en los 25 ejercicios analizados, sin interrupciones ni reversiones. La velocidad media de pérdida oscila entre 400 y 650 personas anuales en el período 2001–2015, desacelerándose ligeramente hacia el final de la serie (2020–2025: ~350 personas/año), posiblemente por efecto de la reducción del tamaño absoluto de las cohortes emigrantes.</p>
+
+    <div class="chart-wrap">
+      <div class="chart-title">Evolución de la población total por sexo — Comarca Eo-Navia (2001–2025)</div>
+      <div class="legend">
+        <div class="legend-item"><span class="legend-dot" style="background:#1a1812"></span>Ambos sexos</div>
+        <div class="legend-item"><span class="legend-dot" style="background:#1a4f8a"></span>Hombres</div>
+        <div class="legend-item"><span class="legend-dot" style="background:#8b2635"></span>Mujeres</div>
+      </div>
+      <div style="position:relative;width:100%;height:280px;">
+        <canvas id="chartTotal" role="img" aria-label="Gráfico de líneas de evolución poblacional 2001-2025. La población total desciende de 54.913 a 42.066 personas.">Población total desciende de 54.913 (2001) a 42.066 (2025). Hombres: 26.691 a 20.647. Mujeres: 28.222 a 21.419.</canvas>
+      </div>
+      <p class="chart-note">Fuente: INE, Padrón Municipal de Habitantes. Elaborado por SADEI. Datos a 1 de enero de cada año.</p>
+    </div>
+
+    <h3>Diferencias por sexo</h3>
+    <p>En todo el período, las mujeres superan en número a los hombres, aunque la brecha se reduce progresivamente. En 2001, la diferencia era de <strong>1.531 personas</strong> (28.222 mujeres frente a 26.691 hombres). En 2025 ha descendido a <strong>772 personas</strong> (21.419 frente a 20.647). Este estrechamiento refleja parcialmente una mayor supervivencia masculina relativa en edades avanzadas —evidenciada en el incremento de la razón de masculinidad en el grupo 65-69— y posiblemente una emigración diferencial por sexo en edades jóvenes-adultas.</p>
+
+    <div class="alert danger">
+      <strong>Punto de inflexión inminente:</strong> De mantenerse la tendencia actual, ambas series —hombres y mujeres— convergerán antes de 2030. La paridad entre sexos, cuando se produce por igual contracción de ambos contingentes, es indicativa de envejecimiento profundo, no de equilibrio demográfico.
+    </div>
+  </div>
+</section>
+
+<!-- ESTRUCTURA POR EDADES -->
+<section>
+  <div class="container">
+    <p class="section-label">03 — Pirámide de edades</p>
+    <h2>Del ensanchamiento adulto al estrangulamiento basal</h2>
+
+    <p>La transformación más reveladora del período 2001–2025 no es el número total de habitantes, sino la reconfiguración radical de la distribución por edades. En 2001, la pirámide exhibía ya señales de envejecimiento —base estrecha, cúspide relativamente amplia—, propias de una población en transición demográfica avanzada. En 2025, la base se ha contraído adicionalmente y las cohortes superiores han ganado peso relativo de forma sostenida.</p>
+
+    <div class="chart-wrap">
+      <div class="chart-title">Pirámide de población — seleccione el año</div>
+      <div class="pyramid-tabs">
+        <div class="pyramid-tab active" onclick="showPyramid('2001', this)">2001</div>
+        <div class="pyramid-tab" onclick="showPyramid('2010', this)">2010</div>
+        <div class="pyramid-tab" onclick="showPyramid('2025', this)">2025</div>
+      </div>
+      <div style="position:relative;width:100%;height:500px;">
+        <canvas id="chartPyramid" role="img" aria-label="Pirámide de población por grupos quinquenales de edad y sexo"></canvas>
+      </div>
+      <p class="chart-note">Barras hacia la izquierda: hombres. Barras hacia la derecha: mujeres. Grupos quinquenales de edad.</p>
+    </div>
+
+    <h3>Interpretación de las tres pirámides</h3>
+    <p>La pirámide de <strong>2001</strong> muestra el «bulto» característico de la generación del baby boom tardío español (cohortes 35-49 años), con una base ya significativamente estrecha y una estructura de urna que anticipa el envejecimiento acelerado. En <strong>2010</strong>, las cohortes de 40-54 años ya dominan la pirámide, mientras que los grupos 20-34 años han sufrido caídas notables, reflejo combinado de baja natalidad y emigración de jóvenes. La pirámide de <strong>2025</strong> es ya inequívocamente invertida en su base: los grupos 0-29 años acumulan menos del 20% de la población total, mientras que la franja 50-74 años concentra más del 43% del contingente. Es la imagen de una población que «envejece desde dentro», con pérdida de potencial reproductivo futuro.</p>
+  </div>
+</section>
+
+<!-- ÍNDICES DEMOGRÁFICOS -->
+<section>
+  <div class="container">
+    <p class="section-label">04 — Índices estructurales</p>
+    <h2>La carga sobre la población activa ya supera el 56%</h2>
+
+    <div class="chart-wrap">
+      <div class="chart-title">Estructura por grandes grupos de edad — % sobre total (2001–2025)</div>
+      <div class="legend">
+        <div class="legend-item"><span class="legend-dot" style="background:#1a4f8a"></span>0–14 años (jóvenes)</div>
+        <div class="legend-item"><span class="legend-dot" style="background:#1a6b5a"></span>15–64 años (activos)</div>
+        <div class="legend-item"><span class="legend-dot" style="background:#8b2635"></span>65+ años (mayores)</div>
+      </div>
+      <div style="position:relative;width:100%;height:260px;">
+        <canvas id="chartStructure" role="img" aria-label="Gráfico de área apilada de estructura por grandes grupos de edad 2001-2025. Mayores incrementan del 26.7 al 33% mientras jóvenes descienden.">Jóvenes (0-14) descienden del 10,1% al 8,6%. Activos (15-64) descienden del 63,2% al 58,4%. Mayores (65+) ascienden del 26,7% al 33,0%.</canvas>
+      </div>
+    </div>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Indicador</th>
+          <th>2001</th>
+          <th>2010</th>
+          <th>2015</th>
+          <th>2020</th>
+          <th>2025</th>
+          <th>Variación</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Población total</td>
+          <td>54.913</td>
+          <td>49.869</td>
+          <td>46.744</td>
+          <td>43.844</td>
+          <td>42.066</td>
+          <td class="bold" style="color:#8b2635">−23,4%</td>
+        </tr>
+        <tr class="highlight">
+          <td>% población 0–14 años</td>
+          <td>10,1%</td>
+          <td>8,9%</td>
+          <td>9,2%</td>
+          <td>9,2%</td>
+          <td>8,6%</td>
+          <td class="bold" style="color:#8b2635">−1,5 pp</td>
+        </tr>
+        <tr>
+          <td>% población 15–64 años</td>
+          <td>63,2%</td>
+          <td>63,3%</td>
+          <td>61,4%</td>
+          <td>59,8%</td>
+          <td>58,4%</td>
+          <td class="bold" style="color:#8b2635">−4,8 pp</td>
+        </tr>
+        <tr class="highlight">
+          <td>% población 65+ años</td>
+          <td>26,7%</td>
+          <td>27,8%</td>
+          <td>29,5%</td>
+          <td>31,0%</td>
+          <td>33,0%</td>
+          <td class="bold" style="color:#8b2635">+6,3 pp</td>
+        </tr>
+        <tr>
+          <td>Índice de vejez (65+/0–14 × 100)</td>
+          <td>265</td>
+          <td>313</td>
+          <td>322</td>
+          <td>337</td>
+          <td>385</td>
+          <td class="bold" style="color:#8b2635">+120 puntos</td>
+        </tr>
+        <tr class="highlight">
+          <td>Índice de dependencia anciana (65+/15–64 × 100)</td>
+          <td>42,2%</td>
+          <td>43,9%</td>
+          <td>48,0%</td>
+          <td>51,8%</td>
+          <td>56,5%</td>
+          <td class="bold" style="color:#8b2635">+14,3 pp</td>
+        </tr>
+        <tr>
+          <td>Edad media estimada (años)</td>
+          <td>45,5</td>
+          <td>48,2</td>
+          <td>49,6</td>
+          <td>50,8</td>
+          <td>51,8</td>
+          <td class="bold" style="color:#b8620a">+6,3 años</td>
+        </tr>
+        <tr class="highlight">
+          <td>Índice de sobreenvejecimiento (80+/65+ × 100)</td>
+          <td>13,1%</td>
+          <td>16,3%</td>
+          <td>18,9%</td>
+          <td>21,8%</td>
+          <td>19,0%</td>
+          <td class="bold" style="color:#b8620a">+5,9 pp</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="alert warning">
+      <strong>Índice de dependencia anciana en zona crítica:</strong> Con un valor del 56,5% en 2025 —es decir, por cada 100 personas en edad activa (15-64 años), hay 56,5 mayores de 65— la comarca Eo-Navia supera ampliamente la media española (≈ 30%) y asturiana (≈ 36%). Este indicador ha cruzado el umbral del 50% en 2018, señalando el inicio de una fase crítica de presión sobre los sistemas de atención sociosanitaria.
+    </div>
+  </div>
+</section>
+
+<!-- ANÁLISIS POR GRUPOS -->
+<section>
+  <div class="container">
+    <p class="section-label">05 — Análisis por grupos de edad</p>
+    <h2>Ganadores y perdedores: la transmutación generacional</h2>
+
+    <p>El análisis por grupos quinquenales revela dinámicas profundamente asimétricas. Mientras las cohortes jóvenes y adultas-jóvenes experimentan pérdidas catastróficas, algunos grupos de edad avanzada registran incrementos notables, revelando no solo un envejecimiento por acumulación en la cima, sino también una longevidad creciente.</p>
+
+    <div class="chart-wrap">
+      <div class="chart-title">Evolución de grupos de edad seleccionados (ambos sexos, 2001–2025)</div>
+      <div class="legend">
+        <div class="legend-item"><span class="legend-dot" style="background:#8b2635"></span>20–24 años</div>
+        <div class="legend-item"><span class="legend-dot" style="background:#c0444f"></span>25–29 años</div>
+        <div class="legend-item"><span class="legend-dot" style="background:#1a6b5a"></span>55–59 años</div>
+        <div class="legend-item"><span class="legend-dot" style="background:#1a4f8a"></span>60–64 años</div>
+        <div class="legend-item"><span class="legend-dot" style="background:#6a4b1a"></span>65–69 años</div>
+      </div>
+      <div style="position:relative;width:100%;height:280px;">
+        <canvas id="chartGroups" role="img" aria-label="Evolución de grupos de edad seleccionados 2001-2025. Los grupos 20-29 años pierden más del 60% de efectivos. Los grupos 55-69 años se mantienen o crecen.">Grupos 20-24 y 25-29 descienden más del 60%. Grupos 55-64 crecen o se mantienen. Grupo 65-69 desciende globalmente pero con recuperación desde 2010.</canvas>
+      </div>
+    </div>
+
+    <h3>Las pérdidas más severas: la «fuga» de jóvenes adultos</h3>
+    <p>Los grupos de edad comprendidos entre los 20 y los 34 años son los que más han sufrido en términos relativos. El grupo <strong>20-24 años ha perdido el 60,8%</strong> de sus efectivos (de 3.866 en 2001 a 1.514 en 2025), y el de <strong>25-29 años el 60,5%</strong> (de 3.757 a 1.485). Se trata de cohortes en edad de formación universitaria, primer empleo y reproducción. Su masiva reducción compromete tanto el potencial productivo como el reproductivo de la comarca en las próximas décadas.</p>
+
+    <h3>El giro en las cohortes de mediana-avanzada edad</h3>
+    <p>En contraste, los grupos de 55-64 años han crecido en términos absolutos: el grupo 60-64 años pasa de 2.997 a 3.663 efectivos (+22,2%), y el de 55-59 de 3.231 a 3.469 (+7,4%). Este incremento refleja el <strong>envejecimiento del baby boom</strong> español: la generación nacida entre 1960 y 1970 está entrando ahora en estas edades, generando una acumulación transitoria que desaparecerá a medida que estas cohortes progresen hacia la vejez.</p>
+
+    <h3>El fenómeno del «cuarto envejecimiento»</h3>
+    <p>Las cifras de <strong>longevidad extrema</strong> son uno de los hallazgos más relevantes del análisis. El grupo 90-94 años ha pasado de 508 personas en 2001 a <strong>935 en 2025</strong> (+84,1%); el de 95-99 de 103 a 251 (+143,7%); y el de 100 y más años de 8 a 28 (+250%). Aunque los valores absolutos son modestos, el crecimiento exponencial de estos grupos tiene implicaciones directas sobre la demanda de cuidados de alta complejidad, geriatría especializada y atención sociosanitaria avanzada.</p>
+
+    <div class="alert info">
+      <strong>Sobreenvejecimiento en plateau:</strong> El índice de sobreenvejecimiento (proporción de mayores de 80 sobre el total de mayores de 65) alcanzó su máximo en 2021 (22,1%) y ha iniciado un descenso hasta el 19,0% en 2025. Este aparente retroceso no indica mejoría estructural: refleja el fallecimiento de las cohortes más numerosas nacidas en los años 40 (baby boom de posguerra) y su sustitución por cohortes algo menos voluminosas. El indicador volverá a crecer en la próxima década cuando las cohortes del baby boom de los años 60-70 alcancen los 80 años.
+    </div>
+  </div>
+</section>
+
+<!-- SOBREENVEJECIMIENTO -->
+<section>
+  <div class="container">
+    <p class="section-label">06 — Longevidad y sobreenvejecimiento</p>
+    <h2>El crecimiento de los mayores de 80 años</h2>
+
+    <div class="chart-wrap">
+      <div class="chart-title">Población 65+ y 80+ años — evolución absoluta y índice de sobreenvejecimiento (ISE)</div>
+      <div class="legend">
+        <div class="legend-item"><span class="legend-dot" style="background:#8b2635"></span>Población 65+</div>
+        <div class="legend-item"><span class="legend-dot" style="background:#1a4f8a; opacity:.7"></span>Población 80+</div>
+        <div class="legend-item"><span class="legend-dot" style="background:#b8620a; border-radius:50%"></span>ISE (%) — eje derecho</div>
+      </div>
+      <div style="position:relative;width:100%;height:280px;">
+        <canvas id="chartSobre" role="img" aria-label="Evolución de la población de 65 años y más y de 80 años y más, con índice de sobreenvejecimiento 2001-2025. La población 80+ crece de 1.919 a 2.645 personas con pico en 2021.">Población 65+ relativamente estable entre 13.700 y 14.700. Población 80+ crece de 1.919 (2001) hasta máximo de 3.013 (2021) y desciende a 2.645 (2025). ISE crece del 13,1% al 22,1% (2021) y baja al 19,0% (2025).</canvas>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROYECCIONES -->
+<section>
+  <div class="container">
+    <p class="section-label">07 — Prospectiva demográfica</p>
+    <h2>Proyección al horizonte 2035: hacia los 38.000 habitantes</h2>
+
+    <p>La proyección demográfica se ha realizado mediante extrapolación exponencial de la tendencia observada en el decenio 2016-2025, que registra una tasa de variación anual compuesta del −1,00%. Este escenario de <strong>mantenimiento de tendencias</strong> —sin intervenciones de política demográfica ni cambios estructurales en los flujos migratorios— apunta a una pérdida adicional de más de 4.000 personas en la próxima década.</p>
+
+    <div class="alert warning">
+      <strong>Limitaciones metodológicas:</strong> Las proyecciones lineales o exponenciales de corto-medio plazo son un instrumento de planificación, no de predicción. Factores como variaciones en las tasas de migración interna y externa, políticas de atracción de población, cambios en la natalidad o mortalidad, pueden alterar significativamente la trayectoria proyectada. Se recomienda su revisión periódica con datos actualizados del Padrón Municipal.
+    </div>
+
+    <div class="chart-wrap">
+      <div class="chart-title">Proyección poblacional 2026–2035 (extrapolación exponencial sobre tendencia 2016–2025)</div>
+      <div class="legend">
+        <div class="legend-item"><span class="legend-dot" style="background:#1a1812"></span>Histórico ambos sexos</div>
+        <div class="legend-item"><span class="legend-dot" style="background:#8b2635; opacity:.6"></span>Proyección ambos sexos</div>
+        <div class="legend-item"><span class="legend-dot" style="background:#1a4f8a; opacity:.6"></span>Proyección hombres</div>
+        <div class="legend-item"><span class="legend-dot" style="background:#c0444f; opacity:.6"></span>Proyección mujeres</div>
+      </div>
+      <div style="position:relative;width:100%;height:280px;">
+        <canvas id="chartProj" role="img" aria-label="Proyección demográfica 2026-2035. La población total desciende de 42.066 en 2025 a aproximadamente 38.025 en 2035.">Proyección: 2026: 41.643; 2030: 39.994; 2035: 38.025. Hombres 2035: ~18.749. Mujeres 2035: ~19.276.</canvas>
+      </div>
+      <p class="chart-note">Metodología: tasa de variación anual compuesta del período 2016–2025 (−1,00%) aplicada de forma continuada. Escenario de mantenimiento de tendencia sin correcciones.</p>
+    </div>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Año</th>
+          <th>Total proyectado</th>
+          <th>Hombres</th>
+          <th>Mujeres</th>
+          <th>Variación vs. 2025</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>2025 (real)</td><td>42.066</td><td>20.647</td><td>21.419</td><td>—</td></tr>
+        <tr class="highlight"><td>2027</td><td>41.224</td><td>20.252</td><td>20.972</td><td class="bold" style="color:#8b2635">−842</td></tr>
+        <tr><td>2030</td><td>39.994</td><td>19.675</td><td>20.319</td><td class="bold" style="color:#8b2635">−2.072</td></tr>
+        <tr class="highlight"><td>2033</td><td>38.801</td><td>19.114</td><td>19.687</td><td class="bold" style="color:#8b2635">−3.265</td></tr>
+        <tr><td>2035</td><td>38.025</td><td>18.749</td><td>19.276</td><td class="bold" style="color:#8b2635">−4.041</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- PUNTOS CLAVE -->
+<section>
+  <div class="container">
+    <p class="section-label">08 — Hallazgos clave y alertas</p>
+    <h2>Siete señales de alerta demográfica</h2>
+
+    <div class="conclusion-grid">
+      <div class="conclusion-card">
+        <span class="icon" style="color:#8b2635">①</span>
+        <h4>Declive poblacional continuado sin señales de reversión</h4>
+        <p>25 años de descenso ininterrumpido, a una tasa media del −1,10% anual, configuran un patrón estructural, no coyuntural. La tendencia no muestra inflexión.</p>
+      </div>
+      <div class="conclusion-card">
+        <span class="icon" style="color:#8b2635">②</span>
+        <h4>Colapso de las cohortes reproductivas</h4>
+        <p>Los grupos 20-34 años han perdido entre el 53% y el 61% de sus efectivos en 25 años. La base del potencial reproductivo futuro está gravemente comprometida.</p>
+      </div>
+      <div class="conclusion-card">
+        <span class="icon" style="color:#b8620a">③</span>
+        <h4>Índice de dependencia anciana en zona crítica (56,5%)</h4>
+        <p>Más de la mitad de los efectivos en edad potencialmente activa deben «sostener» a personas mayores de 65 años. Este ratio se duplicará con la entrada del baby boom en la vejez.</p>
+      </div>
+      <div class="conclusion-card">
+        <span class="icon" style="color:#b8620a">④</span>
+        <h4>Índice de vejez de 385: sin precedentes en la comarca</h4>
+        <p>En 2001 ya era elevado (265). En 2025 ha alcanzado 385 mayores de 65 por cada 100 menores de 15. La proporción de jóvenes es hoy menos de la tercera parte que la de mayores.</p>
+      </div>
+      <div class="conclusion-card">
+        <span class="icon" style="color:#1a4f8a">⑤</span>
+        <h4>Envejecimiento del envejecimiento: longevidad extrema</h4>
+        <p>Los grupos 90+ años han crecido más del 84-250%. La atención a la dependencia severa y la geriatría especializada son servicios cuya demanda seguirá creciendo.</p>
+      </div>
+      <div class="conclusion-card">
+        <span class="icon" style="color:#1a4f8a">⑥</span>
+        <h4>Bono demográfico ficticio del baby boom en tránsito</h4>
+        <p>El crecimiento actual de los grupos 55-69 años es un fenómeno transitorio generacional, no una recuperación estructural. En 2030-2035 estas cohortes pasarán a engrosar el grupo de mayores.</p>
+      </div>
+      <div class="conclusion-card">
+        <span class="icon" style="color:#1a6b5a">⑦</span>
+        <h4>Convergencia de sexos por contracción bilateral</h4>
+        <p>La reducción de la brecha hombres/mujeres no es señal de equilibrio: refleja contracción simétrica. La razón de masculinidad por encima de 100 en grupos 65-74 años señala tendencias en esperanza de vida diferencial.</p>
+      </div>
+      <div class="conclusion-card" style="border-left: 3px solid var(--teal);">
+        <span class="icon" style="color:#1a6b5a">⑧</span>
+        <h4>Proyección 2035: umbral de los 38.000 habitantes</h4>
+        <p>De mantenerse las tendencias actuales, la comarca perderá otros 4.000 habitantes adicionales en la próxima década, con las consiguientes implicaciones para la planificación de recursos sanitarios y sociales.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- IMPLICACIONES SANITARIAS -->
+<section>
+  <div class="container">
+    <p class="section-label">09 — Implicaciones para la salud pública</p>
+    <h2>Repercusiones sobre los servicios sanitarios y sociales</h2>
+
+    <p>Los datos demográficos analizados tienen implicaciones directas sobre la planificación y provisión de servicios de salud en la Comarca Eo-Navia. Más allá del declive poblacional agregado, la reconfiguración etaria de la demanda es el elemento determinante.</p>
+
+    <h3>Presión creciente sobre la atención primaria y especializada en geriatría</h3>
+    <p>Con un 33,0% de la población mayor de 65 años y un índice de dependencia anciana del 56,5%, la demanda de servicios sanitarios per cápita es estructuralmente más elevada que en poblaciones más jóvenes. Los mayores de 65 años generan, en promedio, un volumen de consultas médicas, ingresos hospitalarios y consumo farmacéutico significativamente superior al de los grupos más jóvenes. Esto implica que la <strong>reducción del denominador poblacional no se traduce en reducción proporcional de la demanda sanitaria</strong>.</p>
+
+    <h3>Atención a la dependencia y cuidados de larga duración</h3>
+    <p>El crecimiento de los grupos 80-89 años y 90+ años —con 2.645 personas mayores de 80 años en 2025— demanda una respuesta sostenida en términos de recursos residenciales, atención domiciliaria, cuidados paliativos y apoyo a cuidadores informales. El índice de sobreenvejecimiento, aunque en descenso transitorio, volverá a crecer a partir de 2030.</p>
+
+    <h3>Reducción de la natalidad y servicios pediátricos</h3>
+    <p>El colapso de las cohortes reproductivas (20-34 años) anticipa una continuación del descenso en el número de nacimientos en la comarca. Los servicios de obstetricia, pediatría y educación infantil deberán adaptarse a una demanda decreciente, con posibles implicaciones sobre la viabilidad de algunas infraestructuras.</p>
+
+    <div class="pullquote">
+      <p>El sistema sanitario de Eo-Navia debe planificarse no para la población que tuvo, sino para la que tiene y tendrá: más mayor, más dependiente, con mayor prevalencia de enfermedades crónicas, y con una base de población activa-pagadora progresivamente más reducida.</p>
+    </div>
+
+    <div class="alert success">
+      <strong>Oportunidad de anticipación:</strong> La disponibilidad de datos históricos de calidad (SADEI/INE) permite a las autoridades sanitarias y sociales planificar con anticipación las necesidades de recursos humanos, infraestructuras y servicios sociosanitarios. El horizonte 2030-2035 está suficientemente definido como para permitir intervenciones preventivas en planificación de plantillas, reconversión de recursos y programas de envejecimiento activo.
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <p><strong>Fuente de datos:</strong> Instituto Nacional de Estadística (INE), Padrón Municipal de Habitantes. Elaborado por SADEI — Sociedad Asturiana de Estudios Económicos e Industriales. Datos disponibles en <a href="https://www.sadei.es/" target="_blank">www.sadei.es</a></p>
+    <p><strong>Unidad geográfica:</strong> Área Sanitaria I (Comarca Eo-Navia), Principado de Asturias. Código de referencia: 2040402.</p>
+    <p><strong>Metodología:</strong> Análisis transversal y longitudinal de datos del Padrón Municipal a 1 de enero de cada año, para el período 2001–2025. Los índices demográficos se han calculado conforme a las definiciones estándar del INE y la literatura demográfica española. Las proyecciones corresponden a un escenario de mantenimiento de tendencia (tasa anual compuesta del período 2016–2025).</p>
+    <p style="margin-top:16px; color:#a8a59d;">Elaborado en el marco de la Vigilancia Epidemiológica, Dirección General de Salud Pública, Consejería de Salud del Principado de Asturias · Junio 2026</p>
+  </div>
+</footer>
+
+<script>
+const DATA = {
+  years: [2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025],
+  ambos: [54913,54303,53579,52891,52390,51769,51244,50958,50454,49869,49323,48788,48147,47446,46744,46068,45410,44833,44300,43844,43536,43072,42679,42418,42066],
+  hombres: [26691,26391,26074,25708,25500,25196,24987,24908,24717,24416,24139,23877,23559,23221,22820,22518,22208,21913,21642,21469,21306,21121,20912,20753,20647],
+  mujeres: [28222,27912,27505,27183,26890,26573,26257,26050,25737,25453,25184,24911,24588,24225,23924,23550,23202,22920,22658,22375,22230,21951,21767,21665,21419],
+  young: [10.1,9.7,9.4,9.2,9.1,8.9,8.9,8.8,8.8,8.9,8.9,9.0,9.1,9.2,9.2,9.2,9.2,9.3,9.3,9.2,9.1,8.9,8.8,8.7,8.6],
+  working: [63.2,63.2,63.2,63.6,63.8,63.8,63.8,63.7,63.5,63.3,63.0,62.6,62.1,61.7,61.4,61.0,60.7,60.3,60.0,59.8,59.7,59.4,59.0,58.7,58.4],
+  elderly: [26.7,27.1,27.3,27.2,27.1,27.3,27.4,27.5,27.7,27.8,28.1,28.4,28.8,29.1,29.5,29.8,30.0,30.4,30.7,31.0,31.3,31.7,32.1,32.6,33.0],
+  g2024: [3866,3685,3520,3286,3147,2941,2808,2658,2542,2376,2284,2136,2023,1922,1829,1747,1666,1577,1520,1499,1504,1449,1445,1505,1514],
+  g2529: [3757,3825,3781,3809,3679,3580,3406,3284,3081,2962,2756,2623,2474,2345,2189,2065,1945,1873,1762,1720,1636,1562,1475,1479,1485],
+  g5559: [3231,3306,3299,3334,3351,3354,3274,3311,3269,3293,3293,3364,3399,3491,3581,3666,3724,3704,3695,3671,3617,3552,3574,3510,3469],
+  g6064: [2997,2824,2823,2971,3149,3207,3303,3315,3336,3347,3351,3239,3223,3173,3193,3183,3249,3315,3401,3502,3606,3677,3669,3652,3663],
+  g6569: [3928,3918,3696,3400,3040,2897,2713,2731,2869,3011,3082,3181,3202,3213,3192,3165,3072,3066,3057,3085,3089,3186,3279,3413,3505],
+  p65: [14659,14718,14646,14396,14189,14133,14025,14008,13957,13857,13839,13870,13857,13830,13775,13731,13640,13631,13610,13590,13617,13664,13708,13816,13886],
+  p80: [1919,1982,1984,1990,2022,2065,2128,2191,2267,2257,2282,2372,2463,2556,2600,2679,2752,2853,2912,2961,3013,3007,2934,2822,2645],
+  ise: [13.1,13.5,13.5,13.8,14.3,14.6,15.2,15.6,16.2,16.3,16.5,17.1,17.8,18.5,18.9,19.5,20.2,20.9,21.4,21.8,22.1,22.0,21.4,20.4,19.0],
+  pyrs: {
+    '2001': {h:[743,901,1188,1542,1979,1996,1822,1971,1973,1791,1738,1614,1412,1842,1620,1233,777,397,129,19,4], m:[681,879,1131,1500,1887,1761,1799,1798,1795,1552,1599,1617,1585,2086,1959,1813,1410,903,379,84,4]},
+    '2010': {h:[751,767,788,930,1244,1547,1828,1702,1795,1973,1907,1754,1638,1498,1231,1421,953,496,158,34,1], m:[700,676,751,941,1132,1415,1609,1575,1768,1823,1750,1539,1709,1513,1600,1857,1527,973,477,108,10]},
+    '2025': {h:[466,606,766,805,816,752,842,1079,1357,1696,1626,1725,1831,1772,1489,1232,906,516,305,54,6], m:[453,594,726,729,698,733,855,987,1325,1545,1592,1744,1832,1733,1443,1486,1180,915,630,197,22]}
+  },
+  projYears: [2026,2027,2028,2029,2030,2031,2032,2033,2034,2035],
+  projA: [41643,41224,40810,40400,39994,39593,39195,38801,38411,38025],
+  projH: [20448,20252,20058,19866,19675,19486,19299,19114,18931,18749],
+  projM: [21194,20972,20752,20534,20319,20106,19895,19687,19480,19276]
+};
+
+const AGE_LABELS = ['0–4','5–9','10–14','15–19','20–24','25–29','30–34','35–39','40–44','45–49','50–54','55–59','60–64','65–69','70–74','75–79','80–84','85–89','90–94','95–99','100+'];
+const COLS = { ink:'#1a1812', red:'#8b2635', redL:'#c0444f', teal:'#1a6b5a', amber:'#b8620a', blue:'#1a4f8a', muted:'#a8a59d', rule:'#ddd9d0' };
+
+function makeChart(id, cfg) { return new Chart(document.getElementById(id), cfg); }
+
+makeChart('chartTotal', {
+  type: 'line',
+  data: {
+    labels: DATA.years,
+    datasets: [
+      { label:'Ambos sexos', data: DATA.ambos, borderColor: COLS.ink, backgroundColor:'transparent', borderWidth:2, pointRadius:0, tension:0.3 },
+      { label:'Hombres', data: DATA.hombres, borderColor: COLS.blue, backgroundColor:'transparent', borderWidth:1.5, pointRadius:0, borderDash:[4,3], tension:0.3 },
+      { label:'Mujeres', data: DATA.mujeres, borderColor: COLS.red, backgroundColor:'transparent', borderWidth:1.5, pointRadius:0, borderDash:[2,2], tension:0.3 }
+    ]
+  },
+  options: {
+    responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{display:false}, tooltip:{ callbacks:{ label: ctx => ctx.dataset.label+': '+ctx.parsed.y.toLocaleString('es-ES') } } },
+    scales:{
+      x:{ grid:{color:'rgba(0,0,0,.05)'}, ticks:{font:{size:11}, color:COLS.muted} },
+      y:{ grid:{color:'rgba(0,0,0,.05)'}, ticks:{font:{size:11}, color:COLS.muted, callback: v => v.toLocaleString('es-ES')}, min:18000, max:58000 }
+    }
+  }
+});
+
+let pyramidChart = null;
+function buildPyramidData(yr) {
+  const d = DATA.pyrs[yr];
+  const maxVal = Math.max(...d.h.map((v,i)=>v+d.m[i]))*0.55;
+  return {
+    labels: AGE_LABELS,
+    datasets: [
+      { label:'Hombres', data: d.h.map(v=>-v), backgroundColor: COLS.blue+'cc', borderColor:'transparent', barPercentage:0.85 },
+      { label:'Mujeres', data: d.m, backgroundColor: COLS.red+'cc', borderColor:'transparent', barPercentage:0.85 }
+    ]
+  };
+}
+function showPyramid(yr, btn) {
+  document.querySelectorAll('.pyramid-tab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  if (pyramidChart) {
+    pyramidChart.data = buildPyramidData(yr);
+    pyramidChart.update();
+  }
+}
+pyramidChart = new Chart(document.getElementById('chartPyramid'), {
+  type: 'bar',
+  data: buildPyramidData('2001'),
+  options: {
+    indexAxis:'y', responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{display:false}, tooltip:{ callbacks:{ label: ctx => (ctx.dataset.label+': '+Math.abs(ctx.parsed.x).toLocaleString('es-ES')) } } },
+    scales:{
+      x:{ grid:{color:'rgba(0,0,0,.04)'}, ticks:{font:{size:10}, color:COLS.muted, callback: v => Math.abs(v).toLocaleString('es-ES')} },
+      y:{ grid:{display:false}, ticks:{font:{size:10}, color:COLS.muted} }
+    }
+  }
+});
+
+makeChart('chartStructure', {
+  type:'line',
+  data:{
+    labels: DATA.years,
+    datasets:[
+      { label:'65+ años', data: DATA.elderly, borderColor: COLS.red, backgroundColor: COLS.red+'22', borderWidth:2, fill:true, pointRadius:0, tension:0.3 },
+      { label:'15–64 años', data: DATA.working, borderColor: COLS.teal, backgroundColor: COLS.teal+'18', borderWidth:1.5, fill:true, pointRadius:0, tension:0.3 },
+      { label:'0–14 años', data: DATA.young, borderColor: COLS.blue, backgroundColor: COLS.blue+'22', borderWidth:1.5, fill:true, pointRadius:0, tension:0.3 }
+    ]
+  },
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{display:false}, tooltip:{ callbacks:{ label: ctx => ctx.dataset.label+': '+ctx.parsed.y.toFixed(1)+'%' } } },
+    scales:{
+      x:{ grid:{color:'rgba(0,0,0,.04)'}, ticks:{font:{size:11}, color:COLS.muted} },
+      y:{ grid:{color:'rgba(0,0,0,.04)'}, ticks:{font:{size:11}, color:COLS.muted, callback: v => v+'%'}, min:5, max:70 }
+    }
+  }
+});
+
+makeChart('chartGroups', {
+  type:'line',
+  data:{
+    labels: DATA.years,
+    datasets:[
+      { label:'20–24', data: DATA.g2024, borderColor: COLS.red, backgroundColor:'transparent', borderWidth:2, pointRadius:0, tension:0.3 },
+      { label:'25–29', data: DATA.g2529, borderColor: COLS.redL, backgroundColor:'transparent', borderWidth:1.5, pointRadius:0, borderDash:[3,2], tension:0.3 },
+      { label:'55–59', data: DATA.g5559, borderColor: COLS.teal, backgroundColor:'transparent', borderWidth:2, pointRadius:0, tension:0.3 },
+      { label:'60–64', data: DATA.g6064, borderColor: COLS.blue, backgroundColor:'transparent', borderWidth:1.5, pointRadius:0, borderDash:[3,2], tension:0.3 },
+      { label:'65–69', data: DATA.g6569, borderColor: COLS.amber, backgroundColor:'transparent', borderWidth:1.5, pointRadius:0, borderDash:[5,3], tension:0.3 }
+    ]
+  },
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{display:false}, tooltip:{ callbacks:{ label: ctx => ctx.dataset.label+': '+ctx.parsed.y.toLocaleString('es-ES') } } },
+    scales:{
+      x:{ grid:{color:'rgba(0,0,0,.04)'}, ticks:{font:{size:11}, color:COLS.muted} },
+      y:{ grid:{color:'rgba(0,0,0,.04)'}, ticks:{font:{size:11}, color:COLS.muted, callback: v => v.toLocaleString('es-ES')}, min:1000, max:4200 }
+    }
+  }
+});
+
+makeChart('chartSobre', {
+  type:'bar',
+  data:{
+    labels: DATA.years,
+    datasets:[
+      { type:'bar', label:'Población 65+', data: DATA.p65, backgroundColor: COLS.red+'33', borderColor: COLS.red, borderWidth:0.5, yAxisID:'y' },
+      { type:'bar', label:'Población 80+', data: DATA.p80, backgroundColor: COLS.blue+'55', borderColor: COLS.blue, borderWidth:0.5, yAxisID:'y' },
+      { type:'line', label:'ISE (%)', data: DATA.ise, borderColor: COLS.amber, backgroundColor:'transparent', borderWidth:2.5, pointRadius:2, pointBackgroundColor: COLS.amber, tension:0.3, yAxisID:'y2' }
+    ]
+  },
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{display:false} },
+    scales:{
+      x:{ grid:{color:'rgba(0,0,0,.04)'}, ticks:{font:{size:11}, color:COLS.muted} },
+      y:{ grid:{color:'rgba(0,0,0,.04)'}, ticks:{font:{size:11}, color:COLS.muted, callback: v => v.toLocaleString('es-ES')}, position:'left' },
+      y2:{ grid:{display:false}, ticks:{font:{size:11}, color:COLS.amber, callback: v => v+'%'}, position:'right', max:26 }
+    }
+  }
+});
+
+makeChart('chartProj', {
+  type:'line',
+  data:{
+    labels: [...DATA.years, ...DATA.projYears],
+    datasets:[
+      { label:'Histórico', data: [...DATA.ambos, ...DATA.projYears.map(()=>null)], borderColor: COLS.ink, backgroundColor:'transparent', borderWidth:2.5, pointRadius:0, tension:0.3 },
+      { label:'Proyección total', data: [...DATA.years.map(()=>null), DATA.ambos[24], ...DATA.projA], borderColor: COLS.red, backgroundColor: COLS.red+'15', borderWidth:2, borderDash:[5,3], fill:true, pointRadius:0, tension:0.3 },
+      { label:'Proyección hombres', data: [...DATA.years.map(()=>null), DATA.hombres[24], ...DATA.projH], borderColor: COLS.blue, backgroundColor:'transparent', borderWidth:1.5, borderDash:[3,2], pointRadius:0, tension:0.3 },
+      { label:'Proyección mujeres', data: [...DATA.years.map(()=>null), DATA.mujeres[24], ...DATA.projM], borderColor: COLS.redL, backgroundColor:'transparent', borderWidth:1.5, borderDash:[3,2], pointRadius:0, tension:0.3 }
+    ]
+  },
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{display:false}, tooltip:{ callbacks:{ label: ctx => ctx.dataset.label+': '+ctx.parsed.y?.toLocaleString('es-ES') } } },
+    scales:{
+      x:{ grid:{color:'rgba(0,0,0,.04)'}, ticks:{font:{size:10}, color:COLS.muted, maxTicksLimit:12} },
+      y:{ grid:{color:'rgba(0,0,0,.04)'}, ticks:{font:{size:11}, color:COLS.muted, callback: v => v.toLocaleString('es-ES')}, min:16000, max:58000 }
+    }
+  }
+});
+</script>
+</body>
+</html>
